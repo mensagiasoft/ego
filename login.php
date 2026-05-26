@@ -8,7 +8,8 @@ $password = md5($_POST['password']);
 
 $sql = "SELECT * FROM usuarios 
         WHERE usuario='$usuario' 
-        AND password='$password'";
+        AND password='$password'
+        AND estado = '1'";
 
 $resultado = $conn->query($sql);
 

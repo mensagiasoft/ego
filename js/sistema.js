@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     cargarDatosNow();
 });
 
-document.getElementById("fecha").addEventListener("change", function () {
+document.getElementById("fecha")?.addEventListener("change", function () {
     cargarDatosNow();
 });
 
-document.getElementById("servicio").addEventListener("change", function () {
+document.getElementById("servicio")?.addEventListener("change", function () {
     let select = this;
 
     let monto =
@@ -34,7 +34,7 @@ document.getElementById("servicio").addEventListener("change", function () {
         : "0.00";
 });
 
-document.getElementById("monto").addEventListener("blur", function () {
+document.getElementById("monto")?.addEventListener("blur", function () {
 
     let valor =
         this.value
@@ -64,7 +64,7 @@ document.getElementById("monto").addEventListener("blur", function () {
 
 });
 
-document.getElementById("montoEgreso").addEventListener("blur", function () {
+document.getElementById("montoEgreso")?.addEventListener("blur", function () {
 
     let valor = this.value.replace(",", ".").trim();
 
@@ -85,7 +85,7 @@ document.getElementById("montoEgreso").addEventListener("blur", function () {
 
 });
 
-document.getElementById("guardarIngresos").addEventListener("click", function () {
+document.getElementById("guardarIngresos")?.addEventListener("click", function () {
 
     let fecha = document.getElementById("fecha").value;
     let servicio = document.querySelector("#contenedorIngresos .servicio");
@@ -207,7 +207,7 @@ document.getElementById("guardarIngresos").addEventListener("click", function ()
     });
 });
 
-document.getElementById("guardarEgresos").addEventListener("click", function () {
+document.getElementById("guardarEgresos")?.addEventListener("click", function () {
 
     let fecha = document.getElementById("fecha").value;
     let servicio = document.querySelector("#contenedorEgresos .servicio");
@@ -292,7 +292,7 @@ document.getElementById("guardarEgresos").addEventListener("click", function () 
         // Reestablecer valores
         servicio.value = "";
         monto.value = "0.00";
-        tipoPago.value = "y";
+        tipoPago.value = "e";
 
         Swal.fire({
             icon: "success",
@@ -315,7 +315,7 @@ document.getElementById("guardarEgresos").addEventListener("click", function () 
     });
 });
 
-document.getElementById("cerrarDia").onclick = function () {
+document.getElementById("cerrarDia")?.addEventListener("click", function () {
 
     let fecha = document.getElementById("fecha").value;
 
@@ -326,9 +326,7 @@ document.getElementById("cerrarDia").onclick = function () {
         showCancelButton: true,
         confirmButtonText: 'Sí cerrar'
     }).then((result) => {
-
         if (result.isConfirmed) {
-
             fetch("modules/sistema/cerrar_dia.php", {
                 method: "POST",
                 headers: {
@@ -337,21 +335,14 @@ document.getElementById("cerrarDia").onclick = function () {
                 body: JSON.stringify({
                     fecha: fecha
                 })
-            })
-                .then(r => r.json())
-                .then(data => {
-                    Swal.fire('Día cerrado', '', 'success').then(() => {
-                        bloquearPantalla(true);
-                    });
-                })
-                .catch(err => console.error(err));
-
+            }).then(r => r.json()).then(data => {
+                Swal.fire('Día cerrado', '', 'success').then(() => {
+                    bloquearPantalla(true);
+                });
+            }).catch(err => console.error(err));
         }
-
-    })
-        .catch(err => console.error(err));
-
-}
+    }).catch(err => console.error(err));
+});
 
 function cargarServicios() {
     fetch("modules/sistema/listar_servicios.php")
