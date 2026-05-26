@@ -620,17 +620,13 @@ function calcularTotales(registrosIngresos, registrosEgresos) {
 
 function bloquearPantalla(bloquear) {
 
-    if (bloquear) {
-        document.querySelectorAll("input,select,button").forEach(el => {
+    const elementos = document.querySelectorAll("input, select, button");
 
-            if (!el.classList.contains("no-bloquear")) {
-                el.disabled = true;
-            }
-        });
-    } else {
-        document.querySelectorAll("input,select,button").forEach(el => {
-            el.disabled = false;
-        });
-    }
+    elementos.forEach(el => {
+        if (el.classList.contains("no-bloquear")) {
+            return;
+        }
 
+        el.disabled = bloquear;
+    });
 }

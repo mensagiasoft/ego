@@ -43,9 +43,9 @@ while ($row = $result->fetch_assoc()) {
 
 $stmt = $conn->prepare("SELECT se.bloqueo, sd.tipo_servicio, sd.tipo_pago, SUM(monto) monto_grupo 
                         FROM servicios se, servicio_detalle sd 
-                        WHERE se.id = sd.id AND fecha = ?
+                        WHERE se.id = sd.id AND fecha = ? AND sd.id_usuario = ?
                         GROUP BY se.bloqueo, sd.tipo_servicio, sd.tipo_pago;");
-$stmt->bind_param("s", $fecha);
+$stmt->bind_param("si", $fecha, $id_usuario);
 $stmt->execute();
 
 $result = $stmt->get_result();

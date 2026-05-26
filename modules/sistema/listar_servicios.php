@@ -3,8 +3,8 @@ include("../../conexion.php");
 
 $sql = "SELECT id, nombre, monto 
         FROM servicios_productos 
-        WHERE estado = 1 AND tipo = 's'
-        ORDER BY nombre ASC";
+        WHERE estado = 1
+        ORDER BY tipo DESC, nombre ASC";
 
 $result = $conn->query($sql);
 
