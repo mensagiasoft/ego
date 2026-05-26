@@ -22,12 +22,14 @@
                     <li class="nav-item">
                         <a class="nav-link <?=$active=="pagar" ? 'active' : '' ?>" href="/ego/modules/pagar/pagar.php">Pagar</a>
                     </li>
-
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="/ego/modules/servicios/servicios_productos.php">Servicios y Productos</a>
+                    <li class="nav-item">
+                        <a class="nav-link <?=$active=="servprod" ? 'active' : '' ?>" href="/ego/modules/servicios/servicios_productos.php">Servicios y Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?=$active=="usuarios" ? 'active' : '' ?>" href="/ego/modules/usuarios/usuarios.php">Usuarios</a>
                     </li>
 
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link" href="/ego/modules/dashboard/dashboard.php">Dashboard</a>
                     </li>-->
                 <?php

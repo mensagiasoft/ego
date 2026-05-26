@@ -7,7 +7,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['id'] != 1) {
     exit();
 }
 
-$active = "servprod";
+$active = "usuarios";
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ $active = "servprod";
 
 <head>
     <meta charset="UTF-8">
-    <title>Mantenimiento Servicios y Productos</title>
+    <title>Usuarios</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -48,7 +48,7 @@ $active = "servprod";
 
         <div class="card shadow">
             <div class="card-header text-white" style="background-color: #ca2f96;">
-                <h4>Mantenimiento de Servicios y Productos</h4>
+                <h4>Usuarios del Sistema</h4>
             </div>
 
             <div class="card-body">
@@ -56,36 +56,18 @@ $active = "servprod";
                 <form id="formServicio">
 
                     <div class="row">
-
                         <div class="col-md-3 mb-3">
-                            <label>Tipo <span class="required">*</span></label>
-                            <select id="tipo" class="form-control">
-                                <option value="">Seleccione</option>
-                                <option value="s">Servicio</option>
-                                <option value="p">Producto</option>
-                            </select>
+                            <label>Usuario <span class="required">*</span></label>
+                            <input type="text" id="usuario" class="form-control">
                         </div>
-
                         <div class="col-md-3 mb-3">
+                            <label>Password <span class="required">*</span></label>
+                            <input type="password" id="password" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-6">
                             <label>Nombre <span class="required">*</span></label>
                             <input type="text" id="nombre" class="form-control">
                         </div>
-
-                        <div class="col-md-3 mb-3">
-                            <label>Monto <span class="required">*</span></label>
-                            <input type="number" step="0.01" id="monto" class="form-control">
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            <label>Porcentaje (%) <span class="required">*</span></label>
-                            <input type="number" id="porcentaje" class="form-control">
-                        </div>
-
-                        <div class="col-md-12 mb-3">
-                            <label>Descripción <span class="required">*</span></label>
-                            <textarea id="descripcion" class="form-control"></textarea>
-                        </div>
-
                     </div>
 
                     <button type="submit" class="btn btn-primary">
@@ -114,20 +96,8 @@ $active = "servprod";
             listarInformacion();
         });
 
-        document.getElementById("monto").addEventListener("blur", function() {
-            if (this.value !== "") {
-                this.value = parseFloat(this.value).toFixed(2);
-            }
-        });
-
-        document.getElementById("porcentaje").addEventListener("blur", function() {
-            if (this.value !== "") {
-                this.value = parseFloat(this.value).toFixed(2);
-            }
-        });
-
         function listarInformacion() {
-            fetch("listar_informacion.php")
+            fetch("listar_usuario.php")
                 .then(res => res.text())
                 .then(data => {
                     document.getElementById("contenedorTabla").innerHTML = data;
@@ -147,7 +117,7 @@ $active = "servprod";
                 confirmButtonText: 'Modificar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch("eliminar_informacion.php", {
+                    fetch("eliminar_usuario.php", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"
@@ -175,13 +145,11 @@ $active = "servprod";
 
                 e.preventDefault();
 
-                const tipo = document.getElementById("tipo").value;
+                const usuario = document.getElementById("usuario").value;
                 const nombre = document.getElementById("nombre").value.trim();
-                const descripcion = document.getElementById("descripcion").value.trim();
-                const monto = document.getElementById("monto").value;
-                const porcentaje = document.getElementById("porcentaje").value;
+                const password = document.getElementById("password").value;
 
-                if (!tipo || !nombre || !descripcion || !monto || !porcentaje) {
+                if (!usuario || !nombre || !password) {
 
                     Swal.fire({
                         icon: 'warning',
@@ -193,14 +161,12 @@ $active = "servprod";
                 }
 
                 const payload = {
-                    tipo,
+                    usuario,
                     nombre,
-                    descripcion,
-                    monto,
-                    porcentaje
+                    password
                 };
 
-                fetch("guardar_informacion.php", {
+                fetch("guardar_usuario.php", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
