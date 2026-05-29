@@ -29,9 +29,9 @@
                         <a class="nav-link <?=$active=="usuarios" ? 'active' : '' ?>" href="/ego/modules/usuarios/usuarios.php">Usuarios</a>
                     </li>
 
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="/ego/modules/dashboard/dashboard.php">Dashboard</a>
-                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link <?=$active=="dashboard" ? 'active' : '' ?>" href="/ego/modules/dashboard/dashboard.php">Dashboard</a>
+                    </li>
                 <?php
                 }
                 ?>
