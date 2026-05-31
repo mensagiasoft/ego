@@ -9,7 +9,7 @@ $sql = "SELECT
             sd.monto,
             sp.porcentaje,
             (sd.monto * sp.porcentaje / 100) AS pago,
-            ELT(FIELD(sd.tipo_pago, 'y','p','e'), 'Yape','Plin','Efectivo') AS tipo_pago
+            ELT(FIELD(sd.tipo_pago, 'y','p','e', 't'), 'Yape','Plin','Efectivo', 'Tarjeta') AS tipo_pago
         FROM servicios s
         INNER JOIN servicio_detalle sd ON s.id = sd.id
         INNER JOIN servicios_productos sp ON sd.servicio = sp.id
@@ -22,6 +22,7 @@ $result = $conn->query($sql);
 $yape = 0;
 $plin = 0;
 $efectivo = 0;
+$tarjeta = 0;
 ?>
 
 <div class="table-responsive">
@@ -39,6 +40,7 @@ $efectivo = 0;
                 $yape += ($row['tipo_pago'] == 'Yape') ? $row['pago'] : 0;
                 $plin += ($row['tipo_pago'] == 'Plin') ? $row['pago'] : 0;
                 $efectivo += ($row['tipo_pago'] == 'Efectivo') ? $row['pago'] : 0;
+                $tarjeta += ($row['tipo_pago'] == 'Tarjeta') ? $row['pago'] : 0;
             ?>
                 <tr>
                     <td>
@@ -72,6 +74,10 @@ $efectivo = 0;
 
         if ($efectivo > 0) {
             echo "<b>Efectivo:</b> S/. " . number_format($efectivo, 2);
+        }
+
+        if ($tarjeta > 0) {
+            echo "<b>Tarjeta:</b> S/. " . number_format($tarjeta, 2);
         }
     ?>
 </div>

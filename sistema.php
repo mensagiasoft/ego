@@ -58,7 +58,6 @@ $active = "sistema";
 
         </div>
 
-
         <div class="row">
             <!-- INGRESOS -->
             <div class="col-lg-6 col-12 mb-4">
@@ -70,25 +69,26 @@ $active = "sistema";
 
                         <div class="registro row g-2">
 
-                            <div class="col-lg-3 col-12">
+                            <div class="col-lg-9 col-9">
                                 <select class="form-select servicio" id="servicio">
                                     <option value="0">Seleccione</option>
                                 </select>
                             </div>
 
-                            <div class="col-lg-2 col-6">
+                            <div class="col-lg-3 col-3">
                                 <input type="number" class="form-control monto" placeholder="S/." value="0.00" id="monto">
                             </div>
 
-                            <div class="col-lg-3 col-6">
+                            <div class="col-lg-5 col-5">
                                 <select class="form-control tipo_pago">
                                     <option value="y">Yape</option>
                                     <option value="p">Plin</option>
                                     <option value="e">Efectivo</option>
+                                    <option value="t">Tarjeta</option>
                                 </select>
                             </div>
 
-                            <div class="col-lg-3 col-8">
+                            <div class="col-lg-5 col-5">
                                 <select class="form-control persona">
                                     <option value="1">Mujer</option>
                                     <option value="2">Hombre</option>
@@ -96,12 +96,11 @@ $active = "sistema";
                                 </select>
                             </div>
 
-                            <!--<div class="col-lg-1 col-4">
-                                <button class="btn btn-success agregarIngreso">+</button>
-                            </div>-->
-
+                            <div class="col-lg-2 col-2 d-flex justify-content-center align-items-center">
+                                <input type="checkbox" class="redes" id="redes" name="redes" title="Proviene de Redes Sociales">
+                                <label for="redes" class="ms-1 mb-0">Red</label>
+                            </div>
                         </div>
-
                     </div>
 
                     <button class="btn btn-primary mt-2" id="guardarIngresos">
@@ -152,6 +151,7 @@ $active = "sistema";
                                     <option value="e">Efectivo</option>
                                     <option value="y">Yape</option>
                                     <option value="p">Plin</option>
+                                    <option value="t">Tarjeta</option>
                                 </select>
                             </div>
                         </div>

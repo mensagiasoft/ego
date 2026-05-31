@@ -6,10 +6,10 @@ header('Content-Type: application/json');
 
 $anio = $_GET["anio"] ?? date("Y");
 $mes = $_GET["mes"] ?? date("m");
-$trabajador = $_GET["trabajador"] ?? 0;
+$trabajador = ($_GET["trabajador"] == null) ? 0 : $_GET["trabajador"];
 $whereTrabajador = "";
 
-if ($trabajador != 0) {
+if ($trabajador != 0 && $trabajador != null) {
     $whereTrabajador = " AND sd.id_usuario = ? ";
 }
 
@@ -27,7 +27,7 @@ SELECT
     u.usuario
 FROM servicios s
 INNER JOIN servicio_detalle sd
-    ON s.id = sd.id_detalle
+    ON s.id = sd.id
 INNER JOIN usuarios u
     ON u.id = sd.id_usuario
 WHERE YEAR(
@@ -43,12 +43,7 @@ AND MONTH(
     )
 ) = ?
 $whereTrabajador
-ORDER BY
-    STR_TO_DATE(
-        s.fecha,
-        '%Y-%m-%d'
-    ) DESC
-";
+ORDER BY s.fecha DESC";
 
 $stmt = $conn->prepare($sql);
 
