@@ -45,10 +45,10 @@ foreach ($registros as $item) {
 
     // Inserta registro
     $stmt_cabecera = $conn->prepare("INSERT INTO servicio_detalle (id, id_detalle, tipo_servicio, 
-    servicio, monto, tipo_pago, persona, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    servicio, monto, tipo_pago, persona, id_usuario, redes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $stmt_cabecera->bind_param(
-        "iissdssi",
+        "iissdssii",
         $id_cabecera,
         $id_detalle,
         $tipo_servicio,
@@ -56,7 +56,8 @@ foreach ($registros as $item) {
         $item["monto"],
         $item["tipo_pago"],
         $item["persona"],
-        $_SESSION['id']
+        $_SESSION['id'],
+        $item["redes"]
     );
 
     if (!$stmt_cabecera->execute()) {

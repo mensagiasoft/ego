@@ -92,6 +92,7 @@ document.getElementById("guardarIngresos")?.addEventListener("click", function (
     let monto = document.querySelector("#contenedorIngresos .monto");
     let tipoPago = document.querySelector("#contenedorIngresos .tipo_pago");
     let persona = document.querySelector("#contenedorIngresos .persona");
+    let redes = document.querySelector("#contenedorIngresos .redes");
 
     let hayError = false;
     let primerError = null;
@@ -169,7 +170,8 @@ document.getElementById("guardarIngresos")?.addEventListener("click", function (
             servicio: servicio.value,
             monto: monto.value,
             tipo_pago: tipoPago.value,
-            persona: persona.value
+            persona: persona.value,
+            redes: redes.checked ? 1 : 0
         }]
     };
 
@@ -185,6 +187,7 @@ document.getElementById("guardarIngresos")?.addEventListener("click", function (
         monto.value = "0.00";
         tipoPago.value = "y";
         persona.value = "1";
+        redes.checked = false;
 
         Swal.fire({
             icon: "success",
@@ -414,6 +417,9 @@ function renderTablaIngresos(lista) {
             case "p":
                 pago = '<span class="badge bg-success">Plin</span>';
                 break;
+            case "t":
+                pago = '<span class="badge bg-warning">Tarjeta</span>';
+                break;
             default:
                 pago = '<span class="badge bg-dark">Efectivo</span>';
         }
@@ -422,10 +428,10 @@ function renderTablaIngresos(lista) {
 
         tbody.innerHTML += `
             <tr>
-                <td>${item.servicio_nombre}</td>
-                <td>S/. ${parseFloat(item.monto).toFixed(2)}</td>
+                <td style="color:${Number(item.redes) === 1 ? 'blue' : 'black'}">${item.servicio_nombre}</td>
+                <td style="color:${Number(item.redes) === 1 ? 'blue' : 'black'}">S/. ${parseFloat(item.monto).toFixed(2)}</td>
                 <td>${pago}</td>
-                <td>${persona}</td>
+                <td style="color:${Number(item.redes) === 1 ? 'blue' : 'black'}">${persona}</td>
                 <td>
                     <button class="btn btn-sm btn-danger eliminarRegistro"
                             data-id="${item.id}"
@@ -545,6 +551,9 @@ function renderTablaEgresos(lista) {
             case "p":
                 pago = '<span class="badge bg-success">Plin</span>';
                 break;
+            case "t":
+                pago = '<span class="badge bg-warning">Tarjeta</span>';
+                break;
             default:
                 pago = '<span class="badge bg-dark">Efectivo</span>';
         }
@@ -574,19 +583,21 @@ function calcularTotales(registrosIngresos, registrosEgresos) {
     let ingresos = {
         y: 0,
         p: 0,
-        e: 0
+        e: 0,
+        t: 0
     };
 
     let egresos = {
         y: 0,
         p: 0,
-        e: 0
+        e: 0,
+        t: 0
     };
 
     // Si no hay registros
     if (!registros || registros.length === 0) {
-        document.getElementById("tituloIngresos").innerText = "Ingresos (Yape S/. 0.00 | Plin S/. 0.00 | Efectivo S/. 0.00)";
-        document.getElementById("tituloEgresos").innerText = "Egresos (Yape S/. 0.00 | Plin S/. 0.00 | Efectivo S/. 0.00)";
+        document.getElementById("tituloIngresos").innerHTML = "Ingresos <p style='font-size: 12px;'>Yape S/. 0.00 | Plin S/. 0.00 | Efectivo S/. 0.00 | Tarjeta S/. 0.00</p>";
+        document.getElementById("tituloEgresos").innerHTML = "Egresos <p style='font-size: 12px;'>Yape S/. 0.00 | Plin S/. 0.00 | Efectivo S/. 0.00 | Tarjeta S/. 0.00</p>";
 
         return;
     }
@@ -610,12 +621,14 @@ function calcularTotales(registrosIngresos, registrosEgresos) {
     document.getElementById(
         "tituloIngresos"
     ).innerHTML =
-        `Ingresos <p style="font-size: 16px;">Yape S/. ${ingresos.y.toFixed(2)} | Plin S/. ${ingresos.p.toFixed(2)} | Efectivo S/. ${ingresos.e.toFixed(2)}</p>`;
+        `Ingresos <p style="font-size: 12px;">Yape S/. ${ingresos.y.toFixed(2)} | Plin S/. ${ingresos.p.toFixed(2)} | Efectivo S/. ${ingresos.e.toFixed(2)}
+         | Tarjeta S/. ${ingresos.t.toFixed(2)}</p>`;
 
     document.getElementById(
         "tituloEgresos"
     ).innerHTML =
-        `Egresos <p style="font-size: 16px;">Yape S/. ${egresos.y.toFixed(2)} | Plin S/. ${egresos.p.toFixed(2)} | Efectivo S/. ${egresos.e.toFixed(2)}</p>`;
+        `Egresos <p style="font-size: 12px;">Yape S/. ${egresos.y.toFixed(2)} | Plin S/. ${egresos.p.toFixed(2)} | Efectivo S/. ${egresos.e.toFixed(2)}
+        | Tarjeta S/. ${egresos.t.toFixed(2)}</p>`;
 }
 
 function bloquearPantalla(bloquear) {
