@@ -19,6 +19,7 @@ $query = mysqli_query($conn, $sql);
             <th>Usuario</th>
             <th>Password</th>
             <th>Nombre</th>
+            <th>Rol</th>
             <th>Estado</th>
             <th>Acción</th>
         </tr>
@@ -30,6 +31,7 @@ $query = mysqli_query($conn, $sql);
                 <td><?= $row["usuario"] ?></td>
                 <td><?= substr($row["password"], 0, 8) . "****" . substr($row["password"], -8) ?></td>
                 <td><?= $row["nombre"] ?></td>
+                <td><?= $row["rol"] == 1 ? "Administrador" : ($row["rol"] == 2 ? "Asistente" : ($row["rol"] == 3 ? "Porcentaje" : "Sueldo")) ?></td>
                 <td>
                     <?= $row["estado"] == 1
                         ? "Activo"

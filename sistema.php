@@ -7,6 +7,10 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
+if ($_SESSION['rol'] == 2) {
+    header("Location: modules/dashboard/dashboard.php");
+}
+
 $nombre = $_SESSION['nombre'];
 $fecha = date("Y-m-d");
 $active = "sistema";
@@ -44,7 +48,7 @@ $active = "sistema";
                 </div>
 
                 <?php
-                if ($_SESSION['id'] == 1) {
+                if ($_SESSION['rol'] == 1) {
                 ?>
                     <div class="col-lg-6 col-12 text-lg-end mt-3 mt-lg-0">
                         <button class="btn btn-danger" id="cerrarDia">
@@ -98,7 +102,7 @@ $active = "sistema";
 
                             <div class="col-lg-2 col-2 d-flex justify-content-center align-items-center">
                                 <input type="checkbox" class="redes" id="redes" name="redes" title="Proviene de Redes Sociales">
-                                <label for="redes" class="ms-1 mb-0">Red</label>
+                                <label for="redes" class="ms-1 mb-0">RS</label>
                             </div>
                         </div>
                     </div>

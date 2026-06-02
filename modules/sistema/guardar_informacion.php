@@ -42,6 +42,7 @@ $id_detalle = $fila_id_detalle["id_detalle"];
 
 foreach ($registros as $item) {
     $id_detalle = $id_detalle + 1;
+    $red = $item["redes"] != null ? $item["redes"] : 0;
 
     // Inserta registro
     $stmt_cabecera = $conn->prepare("INSERT INTO servicio_detalle (id, id_detalle, tipo_servicio, 
@@ -57,7 +58,7 @@ foreach ($registros as $item) {
         $item["tipo_pago"],
         $item["persona"],
         $_SESSION['id'],
-        $item["redes"]
+        $red
     );
 
     if (!$stmt_cabecera->execute()) {
