@@ -2,7 +2,7 @@
 include("../../conexion.php");
 session_start();
 
-if (!isset($_SESSION['usuario']) || $_SESSION['id'] != 1) {
+if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 1) {
     header("Location: ../../index.php");
     exit();
 }
@@ -16,7 +16,7 @@ $sql = "SELECT
         INNER JOIN servicios_productos sp ON sd.servicio = sp.id
         INNER JOIN usuarios u ON sd.id_usuario = u.id
         WHERE sd.tipo_servicio = 'i'
-        AND sd.id_usuario != 1
+        AND u.rol = 3
         GROUP BY s.fecha, u.usuario
         ORDER BY s.fecha DESC, u.usuario ASC";
 
@@ -48,7 +48,7 @@ $active = "pagar";
     <div class="container mt-4">
         <div class="card-box">
 
-            <h4 class="mb-3">Reporte de Pago</h4>
+            <h4 class="mb-3">Reporte Pago Porcentaje</h4>
 
             <table id="tabla" class="table table-striped table-bordered w-100">
                 <thead class="thead-custom">

@@ -24,7 +24,15 @@ SELECT
     sd.tipo_servicio,
     sd.tipo_pago,
     sd.monto,
-    u.usuario
+    sd.id_usuario,
+    u.usuario,
+    CASE
+        WHEN sd.servicio REGEXP '^[0-9]+$'
+        THEN (SELECT porcentaje FROM servicios_productos WHERE id = sd.servicio)
+        ELSE 0
+    END AS porcentaje,
+    u.rol,
+    sd.redes
 FROM servicios s
 INNER JOIN servicio_detalle sd
     ON s.id = sd.id

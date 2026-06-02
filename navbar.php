@@ -12,12 +12,16 @@
 
             <ul class="navbar-nav me-auto">
 
+                <?php
+                if ($_SESSION['rol'] != 2) {
+                ?>
                 <li class="nav-item">
                     <a class="nav-link <?=$active=="sistema" ? 'active' : '' ?>" href="/ego/sistema.php">Atención</a>
                 </li>
-
                 <?php
-                if ($_SESSION['id'] == 1) {
+                }
+
+                if ($_SESSION['rol'] == 1) {
                 ?>
                     <li class="nav-item">
                         <a class="nav-link <?=$active=="pagar" ? 'active' : '' ?>" href="/ego/modules/pagar/pagar.php">Pagar</a>
@@ -28,7 +32,11 @@
                     <li class="nav-item">
                         <a class="nav-link <?=$active=="usuarios" ? 'active' : '' ?>" href="/ego/modules/usuarios/usuarios.php">Usuarios</a>
                     </li>
+                <?php
+                }
 
+                if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 1) {
+                ?>
                     <li class="nav-item">
                         <a class="nav-link <?=$active=="dashboard" ? 'active' : '' ?>" href="/ego/modules/dashboard/dashboard.php">Dashboard</a>
                     </li>

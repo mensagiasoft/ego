@@ -52,30 +52,36 @@ $active = "usuarios";
             </div>
 
             <div class="card-body">
-
                 <form id="formServicio">
-
                     <div class="row">
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label>Usuario <span class="required">*</span></label>
                             <input type="text" id="usuario" class="form-control">
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label>Password <span class="required">*</span></label>
                             <input type="password" id="password" class="form-control">
                         </div>
-                        <div class="col-md-6 mb-6">
+                        <div class="col-md-6 mb-3">
                             <label>Nombre <span class="required">*</span></label>
                             <input type="text" id="nombre" class="form-control">
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Rol <span class="required">*</span></label>
+                            <select id="rol" class="form-control">
+                                <option value="0">Seleccione</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Asistente</option>
+                                <option value="3">Trabajador Porcentaje</option>
+                                <option value="4">Trabajador Sueldo</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary mt-3">
                         Guardar
                     </button>
-
                 </form>
-
             </div>
         </div>
 
@@ -148,8 +154,9 @@ $active = "usuarios";
                 const usuario = document.getElementById("usuario").value;
                 const nombre = document.getElementById("nombre").value.trim();
                 const password = document.getElementById("password").value;
+                const rol = document.getElementById("rol").value;
 
-                if (!usuario || !nombre || !password) {
+                if (!usuario || !nombre || !password || rol == 0) {
 
                     Swal.fire({
                         icon: 'warning',
@@ -163,7 +170,8 @@ $active = "usuarios";
                 const payload = {
                     usuario,
                     nombre,
-                    password
+                    password,
+                    rol
                 };
 
                 fetch("guardar_usuario.php", {

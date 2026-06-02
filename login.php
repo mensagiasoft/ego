@@ -20,6 +20,7 @@ if($resultado->num_rows > 0){
     $_SESSION['id'] = $fila['id'];
     $_SESSION['usuario'] = $fila['usuario'];
     $_SESSION['nombre'] = $fila['nombre'];
+    $_SESSION['rol'] = $fila['rol'];
 
     header("Location: sistema.php");
 
